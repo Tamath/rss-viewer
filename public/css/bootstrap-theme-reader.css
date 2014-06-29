@@ -1,0 +1,15 @@
+*, a:focus {
+    outline: none;
+}
+.nav-underline>li.active>a, .nav-underline>li.active>a:hover, .nav-underline>li.active>a:focus {
+    color: inherit;
+    background-color: #ffffff;
+    border-bottom: 2px solid #428bca;
+    border-radius: 0px;
+    margin-bottom: 20px;
+}
+.nav-underline>li>a:hover {
+    background: none;
+    border-bottom: 2px solid #b9b9b9;
+    border-radius: 0px;
+}

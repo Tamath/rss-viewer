@@ -1,9 +1,14 @@
-var rssReader = angular.module('rssReader', []);
+var rssReaderControllers = angular.module('rssReaderControllers', []);
 
-rssReader.controller('RSSPosts', function ($scope, $http) {
+rssReaderControllers.controller('RSSPosts', function ($scope, $http) {
     $scope.posts = [];
     $scope.address = '';
     $scope.addressError = false;
+
+    $scope.$watch('posts', function () {
+        $scope.$emit('posts:update');
+    });
+
     $scope.loadPosts = function () {
         if ( $scope.address ) {
             $scope.addressError = false;
@@ -24,4 +29,20 @@ rssReader.controller('RSSPosts', function ($scope, $http) {
             $scope.addressError = true;
         }
     }
+});
+
+rssReaderControllers.controller('Settings', function ($scope) {
+
+});
+
+rssReaderControllers.directive("jqTrim", function () {
+    return function (scope, element, attrs) {
+        scope.$watch("posts", function () {
+            $(element).dotdotdot({
+                watch: 'window',
+                height: 200
+            });
+            //element.dataTable();
+        });
+    };
 });
