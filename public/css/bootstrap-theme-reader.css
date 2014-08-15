@@ -1,3 +1,4 @@
+/* bootstrap */
 *, a:focus {
     outline: none;
 }
@@ -12,4 +13,31 @@
     background: none;
     border-bottom: 2px solid #b9b9b9;
     border-radius: 0px;
+}
+form {
+    overflow: hidden;
+}
+.glyphicon-refresh-animate {
+    -animation: spin .7s infinite linear;
+    -webkit-animation: spin2 .7s infinite linear;
+}
+@-webkit-keyframes spin2 {
+    from { -webkit-transform: rotate(0deg);}
+    to { -webkit-transform: rotate(360deg);}
+}
+@keyframes spin {
+    from { transform: scale(1) rotate(0deg);}
+    to { transform: scale(1) rotate(360deg);}
+}
+
+/* posts list */
+.post-date, .post-categories {
+    position: relative;
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    margin: 0px 0px 10px 0px;
+}
+.post-date {
+    font-size: 80%;
 }

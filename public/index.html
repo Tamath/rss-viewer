@@ -11,6 +11,7 @@
 
     <script language="JavaScript" src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-local-storage/angular-local-storage.js"></script>
     <script language="JavaScript" src="js/app.js"></script>
     <script language="JavaScript" src="js/controllers.js"></script>
 </head>
@@ -23,13 +24,13 @@
         </div>
 
         <ul class="nav nav-pills nav-underline">
-            <li class="active">
+            <li ng-class="{ active: isActive('/posts')}">
                 <a href="#/posts">Лента записей</a>
             </li>
-            <li>
-                <a href="#">Мои ленты</a>
+            <li ng-class="{ active: isActive('/feeds')}">
+                <a href="#/feeds">Мои ленты</a>
             </li>
-            <li>
+            <li ng-class="{ active: isActive('/settings')}">
                 <a href="#/settings">Настройки</a>
             </li>
         </ul>

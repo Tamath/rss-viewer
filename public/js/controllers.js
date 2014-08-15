@@ -1,34 +1,54 @@
-var rssReaderControllers = angular.module('rssReaderControllers', []);
+var rssReaderControllers = angular.module('rssReaderControllers', ['LocalStorageModule']);
 
-rssReaderControllers.controller('RSSPosts', function ($scope, $http) {
+rssReaderControllers.controller('RSSPosts', function ($scope, $http, $location, localStorageService) {
     $scope.posts = [];
+    $scope.addresses = [];
     $scope.address = '';
     $scope.addressError = false;
+    $scope.loading = false;
 
-    $scope.$watch('posts', function () {
-        $scope.$emit('posts:update');
-    });
+    localStorageService.bind($scope, 'addresses', $scope.addresses);
+
+    $scope.isActive = function (viewLocation) { 
+        return $location.path().indexOf(viewLocation) === 0;
+    };
 
     $scope.loadPosts = function () {
-        if ( $scope.address ) {
-            $scope.addressError = false;
+        if ( $scope.addresses.length ) {
+            
+            $scope.loading = true;
             $http.get('backend.php', {
                 params: {
-                    url: $scope.address
+                    'url[]': $scope.addresses
                 }
             }).success(function (data) {
                 if ( data.success==true ) {
                     $scope.posts = data.data;
-                } else {
-                    $scope.addressError = true;
+                    $scope.loading = false;
                 }
-            }).error(function () {
-                $scope.addressError = true;
             });
-        } else {
-            $scope.addressError = true;
         }
+    };
+    
+    $scope.addAddress = function () {
+        $scope.addresses[$scope.addresses.length] = $scope.address;
+        $scope.loadPosts();
+    };
+    
+    if ( $scope.addresses.length ) {
+        $scope.loadPosts();
     }
+});
+
+rssReaderControllers.controller('Feeds', function ($scope, localStorageService) {
+    $scope.addresses = [];
+    localStorageService.bind($scope, 'addresses', $scope.addresses)
+    $scope.deleteAddress = function (address) {
+        var index = $scope.addresses.indexOf(address);
+        if ( index!==-1 ) {
+            $scope.addresses.splice(index, 1);
+        }
+    };
 });
 
 rssReaderControllers.controller('Settings', function ($scope) {

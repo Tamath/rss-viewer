@@ -9,6 +9,10 @@ rssReaderApp.config(['$routeProvider', function($routeProvider) {
             templateUrl: 'partials/posts.html',
             controller: 'RSSPosts'
         }).
+        when('/feeds', {
+            templateUrl: 'partials/feeds.html',
+            controller: 'Feeds'
+        }).
         when('/settings', {
             templateUrl: 'partials/settings.html',
             controller: 'Settings'
